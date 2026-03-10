@@ -1,0 +1,646 @@
+:root{
+  --c4-bg: #070b14;
+  --c4-nav: #071a33;
+  --c4-primary: #1f6fff;
+  --c4-card: rgba(255,255,255,.06);
+}
+
+body{ background: radial-gradient(1200px 600px at 50% -100px, rgba(31,111,255,.25), transparent 60%), var(--c4-bg); }
+
+.cinem4-nav{ background: linear-gradient(180deg, #071a33, #061327); }
+
+
+
+.brand-dot{
+  width: 10px; height: 10px; border-radius: 999px;
+  background: var(--c4-primary);
+  box-shadow: 0 0 18px rgba(31,111,255,.7);
+}
+.brand-text{ letter-spacing: .6px; }
+
+.hero{
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.hero .carousel-item{
+  min-height: 520px;
+  background-size: cover;
+  background-position: center;
+}
+.hero .hero-overlay{
+  position:absolute; inset:0;
+  background: linear-gradient(90deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.10) 100%);
+}
+.hero .hero-content{
+  position: relative;
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+.hero-search{
+  margin-top: -40px;
+  position: relative;
+  z-index: 3;
+}
+
+.card-glass{
+  background: var(--c4-card);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+}
+
+/* === CARD yang membesar (bukan gambar) === */
+.poster-card{
+  position: relative;
+  width: 100%;
+  height: 380px;              /* penting: bikin ukuran stabil */
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+@media (max-width: 768px){
+  .poster-card{ height: 300px; }
+}
+
+.poster-card:hover{
+  transform: scale(1.06); /* kotaknya membesar */
+  border-color: rgba(31,111,255,.55);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55);
+  z-index: 5;
+}
+
+/* gambar tetap rapi, tidak zoom/crop */
+.poster-media{ width:100%; height:100%; background:#111; }
+.poster-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* === overlay asap === */
+.poster-overlay{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+}
+
+.poster-overlay::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  /* asap + gelap bawah */
+  background:
+    radial-gradient(120% 70% at 50% 65%,
+      rgba(255,255,255,.55) 0%,
+      rgba(255,255,255,.14) 35%,
+      rgba(0,0,0,0) 70%),
+    linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.70) 100%);
+  filter: blur(1px);
+  opacity: .9;
+}
+
+.poster-card:hover .poster-overlay{ opacity: 1; }
+
+.poster-actions, .poster-meta{ position:relative; z-index:2; }
+
+.poster-actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.poster-meta{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+}
+
+/* badge umur pojok */
+.poster-badge{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  background: rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.18);
+  display:grid;
+  place-items:center;
+  font-weight:700;
+  font-size:12px;
+  color:#fff;
+  z-index:3;
+}
+
+/* Mobile: karena tidak ada hover, overlay ditampilin */
+@media (max-width: 768px){
+  .poster-overlay{ opacity:1; }
+  .poster-overlay::before{
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.75) 100%);
+  }
+  .poster-actions .btn{ font-size: 12px; }
+}
+
+.section-title{
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+.tab-soft .nav-link{
+  color: rgba(255,255,255,.65);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  padding: .6rem 1.4rem;
+  transition: all .25s ease;
+}
+
+.tab-soft .nav-link:hover{
+  color:#fff;
+  background: rgba(255,255,255,.1);
+}
+
+.tab-soft .nav-link.active{
+  color:#fff;
+  background: linear-gradient(135deg,#1f6fff,#174fbf);
+  border-color: rgba(31,111,255,.55);
+  box-shadow: 0 8px 22px rgba(0,0,0,.45);
+}
+
+.multi-carousel .carousel-control-prev,
+.multi-carousel .carousel-control-next{
+  width: 54px;
+}
+.multi-carousel .carousel-control-prev-icon,
+.multi-carousel .carousel-control-next-icon{
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,.6));
+}
+
+.carousel-inner{ overflow: visible; }
+
+/* ukuran card khusus halaman grid movies */
+.poster-card--grid{
+  height: 420px;
+}
+@media (max-width: 768px){
+  .poster-card--grid{ height: 320px; }
+}
+
+.movie-wrap{ cursor:pointer; }
+
+/* coming soon: pita tipis di tepi kiri */
+.poster-card .coming-ribbon{
+  position:absolute;
+  top:14px;
+  left:0;
+
+  height:30px;
+  padding:0 14px;
+  display:flex;
+  align-items:center;
+
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+
+  color:#dbe9ff;
+
+  background: linear-gradient(135deg, #0e2a52, #163a70);
+  border-right: 1px solid rgba(255,255,255,.15);
+
+  border-radius:0 999px 999px 0;
+
+  box-shadow:
+  0 0 0 1px rgba(255,255,255,.05),
+  0 8px 20px rgba(0,0,0,.6);
+
+  z-index:6;
+}
+
+.poster-card--grid .poster-media img{
+  object-fit: cover;
+  object-position: center; /* lebih aman untuk poster yang teksnya di bawah */
+}
+
+/* DETAIL PAGE */
+.poster-card--detail{
+  height: auto;
+  aspect-ratio: 2 / 3;
+}
+
+.poster-card--detail .poster-media img{
+  object-fit: contain; /* jangan crop */
+}
+
+/* Navbar spacing + feel */
+.cinem4-nav .navbar-brand { padding-top: .6rem; padding-bottom: .6rem; }
+
+.cinem4-nav .nav-link{
+  color: rgba(255,255,255,.75);
+  padding: .6rem .85rem;
+}
+
+.cinem4-nav .nav-link:hover{ color:#fff; }
+
+.cinem4-nav .nav-link.active{
+  color:#fff;
+}
+
+/* Mobile: biar kanan (lokasi+join) full lebar dan rapi */
+@media (max-width: 991.98px){
+  .cinem4-nav .dropdown, .cinem4-nav a.btn{
+    width: 100%;
+  }
+  .cinem4-nav .d-flex.align-items-center.gap-2.gap-lg-3{
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+}
+
+/* =========================
+   BOOKING PAGE (FINAL)
+   ========================= */
+
+/* HERO */
+.booking-hero{
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  overflow: hidden;
+}
+.booking-hero-bg{
+  position:absolute; inset:0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px);
+  transform: scale(1.05);
+  opacity: .75;
+  z-index: 1;
+}
+.booking-hero-overlay{
+  position:absolute; inset:0;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.55) 0%,
+    rgba(0,0,0,.30) 55%,
+    rgba(0,0,0,.15) 100%
+  );
+  z-index: 2;
+}
+.booking-hero-content{
+  position: relative;
+  z-index: 4;
+  padding: 28px 0 26px;
+}
+
+/* lengkung bawah hero */
+.booking-hero::after{
+  content:"";
+  position:absolute;
+  left:-8%;
+  right:-8%;
+  bottom:-70px;
+  height: 120px;
+  background: var(--c4-bg);
+  border-radius: 0 0 70% 70%;
+  box-shadow: 0 -20px 60px rgba(0,0,0,.35);
+  z-index: 3;
+}
+
+/* text */
+.booking-title{
+  font-weight: 900;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+.booking-meta{
+  display:grid;
+  gap: 6px;
+  color: rgba(255,255,255,.9);
+}
+.booking-meta i{
+  color: rgba(255,255,255,.8);
+  margin-right: 8px;
+}
+
+/* SCREEN IMAGE (pakai file screen.png) */
+.screen-img{
+  width: min(520px, 92%);
+  height: auto;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+/* SEAT MAP WRAP */
+.seat-wrap{
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.seat-row{
+  display:flex;
+  justify-content:center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* aisle (gang tengah) setelah kursi ke-4 */
+.seat-row .seat:nth-child(4){
+  margin-right: 22px;
+}
+
+/* =========================
+   SEAT with SVG mask (seatDefault.svg)
+   ========================= */
+.seat{
+  /* ukuran */
+  width: 44px;
+  height: 34px;
+
+  /* button reset */
+  border: 0;
+  background: transparent;
+  padding: 0;
+
+  /* text */
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255,255,255,.92);
+
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+
+  /* theme variables */
+  --seat-fill: rgba(255,255,255,.10);
+  --seat-stroke: rgba(255,255,255,.80);
+  transition: transform .15s ease;
+}
+
+/* stroke layer */
+.seat::before{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--seat-stroke);
+  -webkit-mask: url("../ui/seatDefault.svg") no-repeat center / contain;
+  mask: url("../ui/seatDefault.svg") no-repeat center / contain;
+  transform: scale(1.07);
+  z-index: -2;
+}
+
+/* fill layer */
+.seat::after{
+  content:"";
+  position:absolute; inset:0;
+  background: var(--seat-fill);
+  -webkit-mask: url("../ui/seatDefault.svg") no-repeat center / contain;
+  mask: url("../ui/seatDefault.svg") no-repeat center / contain;
+  z-index: -1;
+}
+
+/* hover */
+.seat:hover{
+  transform: translateY(-2px);
+  --seat-fill: rgba(31,111,255,.20);
+  --seat-stroke: rgba(31,111,255,.65);
+}
+
+/* selected */
+.seat.is-selected{
+  --seat-fill: rgba(31,111,255,.80);
+  --seat-stroke: rgba(255,255,255,.92);
+}
+
+/* booked */
+.seat.is-booked{
+  cursor: not-allowed;
+  opacity: .55;
+  color: rgba(255,255,255,.60);
+  --seat-fill: rgba(255,255,255,.08);
+  --seat-stroke: rgba(255,255,255,.22);
+}
+
+/* keyboard focus */
+.seat:focus-visible{
+  outline: 0;
+  transform: translateY(-2px);
+  --seat-stroke: rgba(31,111,255,.85);
+}
+
+/* =========================
+   LEGEND (pakai SVG juga)
+   ========================= */
+.seat-legend .legend-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color: rgba(255,255,255,.8);
+}
+
+.legend-seat{
+  width: 20px;
+  height: 16px;
+  display:inline-block;
+  -webkit-mask: url("../ui/seatDefault.svg") no-repeat center / contain;
+  mask: url("../ui/seatDefault.svg") no-repeat center / contain;
+  background: rgba(255,255,255,.10);
+}
+
+.legend-seat.available{ background: rgba(255,255,255,.12); }
+.legend-seat.booked{ background: rgba(255,255,255,.20); opacity: .6; }
+.legend-seat.selected{ background: rgba(31,111,255,.85); opacity: 1; }
+.legend-seat.couple{ background: rgba(255,255,255,.12); border-radius: 6px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px){
+  .booking-title{ font-size: 26px; }
+
+  .screen-img{
+    width: min(440px, 92%);
+  }
+
+  .seat{
+    width: 38px;
+    height: 32px;
+    font-size: 10px;
+  }
+
+  .seat-row{ gap: 8px; }
+  .seat-row .seat:nth-child(4){ margin-right: 16px; }
+}
+/* ===== PROMO PAGE SIMPLE ===== */
+.promo-tab.btn-outline-primary{
+  color: rgba(255,255,255,.75);
+  border-color: rgba(31,111,255,.55);
+}
+.promo-tab.btn-outline-primary:hover{
+  color:#fff;
+  background: rgba(31,111,255,.16);
+}
+.promo-tab.btn-primary{
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+}
+
+.promo-card{
+  border-radius: 14px;
+  overflow: hidden;
+}
+.promo-thumb{
+  height: 210px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+.promo-title{
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+/* ===== Scroll Reveal ===== */
+.reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-in{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* varian arah */
+.reveal-left{ transform: translateX(-18px); }
+.reveal-right{ transform: translateX(18px); }
+.reveal-left.is-in,
+.reveal-right.is-in{ transform: translateX(0); }
+
+/* delay util (opsional) */
+.reveal.d1{ transition-delay: .06s; }
+.reveal.d2{ transition-delay: .12s; }
+.reveal.d3{ transition-delay: .18s; }
+.reveal.d4{ transition-delay: .24s; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== CINEMA PAGE ===== */
+.cinema-hero{
+  position: relative;
+  min-height: 340px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  overflow: hidden;
+}
+.cinema-hero-bg{
+  position:absolute; inset:0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px);
+  transform: scale(1.04);
+  opacity: .75;
+}
+.cinema-hero-overlay{
+  position:absolute; inset:0;
+  background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.15) 100%);
+}
+.cinema-hero-content{
+  position: relative;
+  padding: 80px 0 60px;
+}
+
+.cinema-search{
+  margin-top: -34px;
+  position: relative;
+  z-index: 3;
+}
+
+.cinema-card{ overflow:hidden; border-radius: 18px; }
+.cinema-thumb{
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+/* fix dropdown option */
+select.form-select{
+  background-color: rgba(20,20,30,.95) !important;
+  color: #fff !important;
+}
+
+select.form-select option{
+  background-color: #111827;
+  color: #fff;
+}
+
+.poster-keen-wrap{
+  position: relative;
+}
+
+.poster-keen{
+  overflow: hidden;
+}
+
+.poster-keen-slide{
+  min-width: 0;
+  display: flex;
+}
+
+.poster-keen-slide .movie-wrap{
+  width: 100%;
+}
+
+.poster-keen-nav{
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(9,16,31,.72);
+  color: #fff;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(10px);
+  transition: all .2s ease;
+}
+
+.poster-keen-nav:hover{
+  background: rgba(20,33,60,.95);
+  border-color: rgba(31,111,255,.45);
+}
+
+.poster-keen-prev{
+  left: -8px;
+}
+
+.poster-keen-next{
+  right: -8px;
+}
+
+@media (max-width: 767px){
+  .poster-keen-nav{
+    display: none;
+  }
+}
