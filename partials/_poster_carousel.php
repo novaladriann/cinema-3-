@@ -119,7 +119,7 @@ function renderPosterCarousel(string $id, array $items, string $mode = 'now')
                     const nextBtn = wrap ? wrap.querySelector('.poster-keen-next') : null;
 
                     const keen = new KeenSlider(slider, {
-                        loop: true,
+                        loop: false,
                         mode: 'free-snap',
                         renderMode: 'precision',
                         drag: true,
