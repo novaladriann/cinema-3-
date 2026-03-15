@@ -12,18 +12,29 @@ while ($row = $cityResult->fetch_assoc()) {
   $CITIES[] = $row['city'];
 }
 
+/* Cek apakah ada cinema tanpa kota */
+$noCityCount = $conn->query("SELECT COUNT(*) FROM cinemas WHERE is_active = 1 AND (city IS NULL OR city = '')")->fetch_row()[0] ?? 0;
+if ($noCityCount > 0) $CITIES[] = 'Lainnya';
+
 /* Default kota pertama jika belum dipilih */
 $city = $_GET['city'] ?? ($CITIES[0] ?? '');
 
 /* ── Ambil cinema sesuai kota ── */
 $cinemaList = [];
-if ($city !== '') {
+if ($city === 'Lainnya') {
+  $r = $conn->query("SELECT * FROM cinemas WHERE is_active = 1 AND (city IS NULL OR city = '') ORDER BY name");
+  while ($row = $r->fetch_assoc()) $cinemaList[] = $row;
+} elseif ($city !== '') {
   $stmt = $conn->prepare("SELECT * FROM cinemas WHERE is_active = 1 AND city = ? ORDER BY name");
   $stmt->bind_param("s", $city);
   $stmt->execute();
   $r = $stmt->get_result();
   while ($row = $r->fetch_assoc()) $cinemaList[] = $row;
   $stmt->close();
+} else {
+  /* Tidak ada kota sama sekali — tampilkan semua */
+  $r = $conn->query("SELECT * FROM cinemas WHERE is_active = 1 ORDER BY name");
+  while ($row = $r->fetch_assoc()) $cinemaList[] = $row;
 }
 ?>
 

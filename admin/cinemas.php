@@ -7,8 +7,12 @@ $title     = "CINEM4 Admin — Bioskop";
 $pageTitle = "Manajemen Bioskop";
 
 /* ── Proses form inline (tambah/edit/hapus) ── */
-$errors  = [];
-$success = '';
+/* Cek apakah kolom image sudah ada, kalau belum auto ALTER */
+$checkCol = $conn->query("SHOW COLUMNS FROM cinemas LIKE 'image'");
+if ($checkCol->num_rows === 0) {
+  $conn->query("ALTER TABLE cinemas ADD COLUMN image varchar(255) DEFAULT NULL AFTER address");
+}
+
 $editData = null;
 $editId   = isset($_GET['edit']) ? (int)$_GET['edit'] : 0;
 
