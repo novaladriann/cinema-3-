@@ -81,7 +81,7 @@ endif;
                             <label class="form-label text-light">First Name</label>
                             <input class="form-control bg-dark text-light border-secondary"
                                 name="first_name"
-                                placeholder="John"
+                                placeholder="First Name"
                                 required>
                         </div>
 
@@ -89,7 +89,7 @@ endif;
                             <label class="form-label text-light">Last Name</label>
                             <input class="form-control bg-dark text-light border-secondary"
                                 name="last_name"
-                                placeholder="Doe"
+                                placeholder="Last Name"
                                 required>
                         </div>
 
