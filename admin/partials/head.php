@@ -243,6 +243,8 @@
       font-size: 11px; font-weight: 700;
       padding: 3px 10px; border-radius: 999px;
       letter-spacing: .4px;
+      white-space: nowrap;
+      display: inline-block;
     }
     .adm-badge-green  { background: rgba(25,135,84,.20);  border: 1px solid rgba(25,135,84,.40);  color: #6ee7b7; }
     .adm-badge-blue   { background: rgba(31,111,255,.20); border: 1px solid rgba(31,111,255,.40); color: #93c5fd; }
