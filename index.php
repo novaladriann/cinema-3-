@@ -164,7 +164,7 @@ foreach ($heroMoviePool as $m) {
     "cta2"  => "Details",
     "link1" => ($status === 'upcoming')
       ? "movie-detail.php?slug=" . urlencode($slug)
-      : "booking.php?slug=" . urlencode($slug),
+      : "movie-detail.php?slug=" . urlencode($slug),
     "link2" => "movie-detail.php?slug=" . urlencode($slug),
   ];
 }

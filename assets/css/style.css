@@ -333,20 +333,16 @@ body {
 .booking-hero-content {
   position: relative;
   z-index: 4;
-  padding: 28px 0 26px;
+  padding: 52px 0 56px;
 }
 
 /* lengkung bawah hero */
 .booking-hero::after {
   content: "";
   position: absolute;
-  left: -8%;
-  right: -8%;
-  bottom: -70px;
-  height: 120px;
-  background: var(--c4-bg);
-  border-radius: 0 0 70% 70%;
-  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.35);
+  left: 0; right: 0; bottom: 0;
+  height: 80px;
+  background: linear-gradient(180deg, transparent 0%, #070b14 100%);
   z-index: 3;
 }
 
@@ -421,6 +417,53 @@ body {
   --seat-stroke: rgba(255, 255, 255, 0.8);
   transition: transform 0.15s ease;
 }
+
+.bk-screen-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+/* Glow ambient di belakang layar */
+.bk-screen-wrap::before {
+  content: "";
+  position: absolute;
+  top: 15%; left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse,
+    rgba(31,111,255,.30) 0%,
+    rgba(31,111,255,.12) 50%,
+    transparent 75%);
+  filter: blur(32px);
+  z-index: 0;
+  pointer-events: none;
+}
+.bk-screen-img {
+  position: relative;
+  z-index: 1;
+  width: min(620px, 94%);
+  height: auto;
+  display: block;
+  filter:
+    drop-shadow(0 0 14px rgba(31,111,255,.75))
+    drop-shadow(0 0 36px rgba(31,111,255,.35));
+}
+
+/* Studio label */
+.bk-studio-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.40);
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .bk-screen-img { width: min(360px, 94%); }
+}
+
 
 /* stroke layer */
 .seat::before {
