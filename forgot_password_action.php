@@ -17,20 +17,27 @@ if(empty($email)){
     exit;
 }
 
-$q = mysqli_query($conn,"SELECT * FROM users WHERE email='$email'");
+$stmt = $conn->prepare("SELECT id_user FROM users WHERE email = ? LIMIT 1");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->store_result();
 
-if(mysqli_num_rows($q) > 0){
+if ($stmt->num_rows > 0) {
+    $stmt->close();
 
-    $token = bin2hex(random_bytes(32));
+    $token   = bin2hex(random_bytes(32));
     $expired = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
-    mysqli_query($conn,"
-        UPDATE users 
-        SET reset_token='$token', reset_expired='$expired'
-        WHERE email='$email'
-    ");
+    $upd = $conn->prepare("UPDATE users SET reset_token = ?, reset_expired = ? WHERE email = ?");
+    $upd->bind_param("sss", $token, $expired, $email);
+    $upd->execute();
+    $upd->close();
 
-    $link = "http://localhost/cinema/reset_password.php?token=$token";
+    /* URL otomatis mengikuti domain aktif (localhost, .test, dll) */
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host     = $_SERVER['HTTP_HOST'];
+$basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$link     = $protocol . '://' . $host . $basePath . '/reset_password.php?token=' . $token;
 
     $mail = new PHPMailer(true);
     $mail->AddEmbeddedImage('assets/img/logo-cinem4.png','logo_cinem4');
@@ -117,7 +124,7 @@ $mail->Body = "
 
     }
 
-}else{
+} else {
 
     $_SESSION['error'] = "Email tidak ditemukan.";
     header("Location: forgot_password.php");

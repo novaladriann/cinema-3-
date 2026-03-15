@@ -16,7 +16,7 @@ if($result->num_rows == 0){
 <?php include 'partials/head.php'; ?>
 <?php include 'partials/navbar.php'; ?>
 
-<div class="container py-5" style="max-width:500px">
+<div class="container py-5" style="max-width:500px; min-height:calc(100vh - 140px);">
 
 <h3 class="text-light mb-4">Reset Password</h3>
 

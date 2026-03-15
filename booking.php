@@ -165,7 +165,7 @@ $colLabels = range(1, $cols);
 
     <!-- ── Ilustrasi Layar ── -->
     <div class="bk-screen-wrap">
-      <img src="assets/ui/screen-3.png" alt="Screen" class="bk-screen-img">
+      <img src="assets/ui/screen-7.png" alt="Screen" class="bk-screen-img">
     </div>
 
 
