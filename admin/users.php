@@ -84,7 +84,7 @@ include 'partials/sidebar.php';
       </div>
 
       <!-- Filter -->
-      <div class="adm-card-body" style="padding-bottom:0;">
+      <div class="adm-card-body d-none" style="padding-bottom:0;">
         <form class="d-flex flex-wrap gap-2" method="get">
           <input type="text" name="q" class="adm-form-control"
             placeholder="Nama / email / no. WA..."
@@ -99,7 +99,7 @@ include 'partials/sidebar.php';
       </div>
 
       <div style="overflow-x:auto; margin-top:12px;">
-        <table class="adm-table">
+        <table class="adm-table" data-dt='{}'>
           <thead>
             <tr>
               <th>#</th>

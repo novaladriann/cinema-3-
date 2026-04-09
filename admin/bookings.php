@@ -111,7 +111,7 @@ include 'partials/sidebar.php';
       </div>
 
       <div style="overflow-x:auto; margin-top:12px;">
-        <table class="adm-table">
+        <table class="adm-table" data-dt='{"searching":false}'>
           <thead>
             <tr>
               <th>#</th>

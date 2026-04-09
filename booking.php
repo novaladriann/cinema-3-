@@ -2,8 +2,8 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header("Location: join-us.php?mode=login");
-    exit;
+  header("Location: join-us.php?mode=login");
+  exit;
 }
 
 $title  = "CINEM4 - Booking";
@@ -103,7 +103,7 @@ if ($scheduleId > 0) {
 */
 $cols     = 8;
 $rowCount = (int)ceil($capacity / $cols);
-$rowLabels = array_slice(range('A','Z'), 0, $rowCount);
+$rowLabels = array_slice(range('A', 'Z'), 0, $rowCount);
 $colLabels = range(1, $cols);
 ?>
 
@@ -120,7 +120,7 @@ $colLabels = range(1, $cols);
         <div class="text-secondary mb-3">
           <?= htmlspecialchars(strtoupper($genre)) ?>
           <?php if ($dur): ?> • <?= htmlspecialchars($dur) ?><?php endif; ?>
-          <?php if ($rating): ?> • <?= htmlspecialchars($rating) ?><?php endif; ?>
+            <?php if ($rating): ?> • <?= htmlspecialchars($rating) ?><?php endif; ?>
         </div>
         <div class="booking-meta">
           <div><i class="bi bi-building"></i>
@@ -140,7 +140,7 @@ $colLabels = range(1, $cols);
       </div>
 
       <a href="movie-detail.php?slug=<?= urlencode($slug) ?>"
-         class="btn btn-outline-light border-secondary rounded-pill px-4">
+        class="btn btn-outline-light border-secondary rounded-pill px-4">
         <i class="bi bi-arrow-left me-1"></i> Back
       </a>
     </div>
@@ -165,7 +165,7 @@ $colLabels = range(1, $cols);
 
     <!-- ── Ilustrasi Layar ── -->
     <div class="bk-screen-wrap">
-      <img src="assets/ui/screen-7.png" alt="Screen" class="bk-screen-img">
+      <img src="assets/ui/screen-3.png" alt="Screen" class="bk-screen-img">
     </div>
 
 
@@ -175,9 +175,9 @@ $colLabels = range(1, $cols);
         <div class="seat-row">
           <?php foreach ($colLabels as $c): ?>
             <?php
-              $code       = $r . $c;
-              $isBooked   = in_array($code, $bookedSeats, true);
-              $cls        = 'seat' . ($isBooked ? ' is-booked' : '');
+            $code       = $r . $c;
+            $isBooked   = in_array($code, $bookedSeats, true);
+            $cls        = 'seat' . ($isBooked ? ' is-booked' : '');
             ?>
             <button type="button"
               class="<?= $cls ?>"
@@ -229,66 +229,107 @@ $colLabels = range(1, $cols);
 </div>
 
 
+<style>
+/* ── Ilustrasi Layar ── */
+.bk-screen-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+/* Glow ambient di belakang layar */
+.bk-screen-wrap::before {
+  content: "";
+  position: absolute;
+  top: 15%; left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse,
+    rgba(31,111,255,.30) 0%,
+    rgba(31,111,255,.12) 50%,
+    transparent 75%);
+  filter: blur(32px);
+  z-index: 0;
+  pointer-events: none;
+}
+.bk-screen-img {
+  position: relative;
+  z-index: 1;
+  width: min(450px, 94%);
+  height: auto;
+  display: block;
+  filter:
+    drop-shadow(0 0 14px rgba(31,111,255,.75))
+    drop-shadow(0 0 36px rgba(31,111,255,.35));
+}
+ 
+ 
+@media (max-width: 767px) {
+  .bk-screen-img { width: min(360px, 94%); }
+}
+</style>
+
 <!-- ══ SCRIPT ══ -->
 <script>
-(function () {
-  const price      = <?= $price ?>;
-  const selected   = new Set();
-  const selectedTx = document.getElementById('selectedText');
-  const totalPrTx  = document.getElementById('totalPrice');
-  const nextBtn    = document.getElementById('nextBtn');
-  const clearBtn   = document.getElementById('clearBtn');
-  const scheduleId = <?= $scheduleId ?>;
-  const slug       = '<?= addslashes($slug) ?>';
+  (function() {
+    const price = <?= $price ?>;
+    const selected = new Set();
+    const selectedTx = document.getElementById('selectedText');
+    const totalPrTx = document.getElementById('totalPrice');
+    const nextBtn = document.getElementById('nextBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const scheduleId = <?= $scheduleId ?>;
+    const slug = '<?= addslashes($slug) ?>';
 
-  function sync() {
-    const seats   = Array.from(selected).sort();
-    const seatsStr = seats.join(', ');
-    selectedTx.textContent = seatsStr || '—';
+    function sync() {
+      const seats = Array.from(selected).sort();
+      const seatsStr = seats.join(', ');
+      selectedTx.textContent = seatsStr || '—';
 
-    if (price > 0 && seats.length > 0) {
-      const total = price * seats.length;
-      totalPrTx.textContent = seats.length + ' kursi • Rp ' +
-        total.toLocaleString('id-ID');
-    } else {
-      totalPrTx.textContent = '';
-    }
-
-    /* Update link next */
-    const disabled = seats.length === 0;
-    nextBtn.classList.toggle('disabled', disabled);
-    nextBtn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
-
-    if (!disabled) {
-      nextBtn.href = 'payment.php?schedule=' + scheduleId
-        + '&slug=' + encodeURIComponent(slug)
-        + '&seats=' + encodeURIComponent(seats.join(','));
-    }
-  }
-
-  document.querySelectorAll('.seat:not(.is-booked)').forEach(btn => {
-    btn.addEventListener('click', function () {
-      const code = this.getAttribute('data-seat');
-      if (selected.has(code)) {
-        selected.delete(code);
-        this.classList.remove('is-selected');
+      if (price > 0 && seats.length > 0) {
+        const total = price * seats.length;
+        totalPrTx.textContent = seats.length + ' kursi • Rp ' +
+          total.toLocaleString('id-ID');
       } else {
-        selected.add(code);
-        this.classList.add('is-selected');
+        totalPrTx.textContent = '';
       }
+
+      /* Update link next */
+      const disabled = seats.length === 0;
+      nextBtn.classList.toggle('disabled', disabled);
+      nextBtn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+
+      if (!disabled) {
+        nextBtn.href = 'payment.php?schedule=' + scheduleId +
+          '&slug=' + encodeURIComponent(slug) +
+          '&seats=' + encodeURIComponent(seats.join(','));
+      }
+    }
+
+    document.querySelectorAll('.seat:not(.is-booked)').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const code = this.getAttribute('data-seat');
+        if (selected.has(code)) {
+          selected.delete(code);
+          this.classList.remove('is-selected');
+        } else {
+          selected.add(code);
+          this.classList.add('is-selected');
+        }
+        sync();
+      });
+    });
+
+    clearBtn.addEventListener('click', function() {
+      selected.clear();
+      document.querySelectorAll('.seat.is-selected')
+        .forEach(b => b.classList.remove('is-selected'));
       sync();
     });
-  });
 
-  clearBtn.addEventListener('click', function () {
-    selected.clear();
-    document.querySelectorAll('.seat.is-selected')
-      .forEach(b => b.classList.remove('is-selected'));
     sync();
-  });
-
-  sync();
-}());
+  }());
 </script>
 
 <?php include 'partials/footer.php'; ?>

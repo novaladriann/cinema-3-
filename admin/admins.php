@@ -233,7 +233,7 @@ include 'partials/sidebar.php';
             <div class="adm-card-title">Daftar Admin</div>
           </div>
           <div style="overflow-x:auto;">
-            <table class="adm-table">
+            <table class="adm-table" data-dt='{}'>
               <thead>
                 <tr>
                   <th>#</th>
@@ -315,7 +315,6 @@ include 'partials/sidebar.php';
           </div>
         </div>
       </div>
-      
 
     </div>
   </div>

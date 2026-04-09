@@ -135,7 +135,7 @@ include 'partials/sidebar.php';
             <a href="movies.php" class="adm-btn adm-btn-outline adm-btn-sm">Lihat Semua</a>
           </div>
           <div style="overflow-x:auto;">
-            <table class="adm-table">
+            <table class="adm-table" data-dt='{"paging":false,"searching":false,"info":false}'>
               <thead>
                 <tr>
                   <th>Judul</th>
@@ -171,7 +171,7 @@ include 'partials/sidebar.php';
             <a href="bookings.php" class="adm-btn adm-btn-outline adm-btn-sm">Lihat Semua</a>
           </div>
           <div style="overflow-x:auto;">
-            <table class="adm-table">
+            <table class="adm-table" data-dt='{"paging":false,"searching":false,"info":false}'>
               <thead>
                 <tr>
                   <th>Kode</th>
