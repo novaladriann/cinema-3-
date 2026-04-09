@@ -165,7 +165,6 @@ function datePill(string $date): array {
           <?php if ($rating !== ''): ?>
             <span class="md-tag md-tag-age"><?= htmlspecialchars($rating) ?></span>
           <?php endif; ?>
-          <span class="md-tag">Bahasa Indonesia</span>
           <?php if ($isUpcoming): ?>
             <span class="md-tag md-tag-soon">Coming Soon</span>
           <?php endif; ?>

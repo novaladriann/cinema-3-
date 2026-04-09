@@ -137,7 +137,7 @@ unset($m);
                 <?php endif; ?>
 
                 <?php if ($status !== 'upcoming'): ?>
-                  <a href="booking.php?slug=<?= urlencode($slug) ?>"
+                  <a href="movie-detail.php?slug=<?= urlencode($slug) ?>#jadwal"
                     class="btn btn-dark btn-sm rounded-pill px-3 btn-ticket">
                     <i class="bi bi-ticket-perforated me-1"></i> Tiket
                   </a>

@@ -180,7 +180,7 @@ include 'partials/sidebar.php';
             <div class="adm-card-title">Daftar Bioskop</div>
           </div>
           <div style="overflow-x:auto;">
-            <table class="adm-table">
+            <table class="adm-table" data-dt='{}'>
               <thead>
                 <tr>
                   <th>#</th>

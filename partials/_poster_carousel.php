@@ -17,12 +17,12 @@ function renderPosterCarousel(string $id, array $items, string $mode = 'now')
                 $slug    = $m['slug']   ?? '';
                 $titleM  = $m['title']  ?? '';
                 $poster  = $m['poster'] ?? '';
-                $trailer = trim($m['trailer'] ?? '');
+                $trailer = trim($m['trailer_url'] ?? $m['trailer'] ?? '');
 
-                $age    = trim((string)($m['age'] ?? ''));
-                $dur    = trim((string)($m['dur'] ?? ''));
-                $format = trim((string)($m['format'] ?? ''));
-                $rating = trim((string)($m['rating'] ?? ''));
+                $age    = trim((string)($m['rating_age'] ?? $m['age'] ?? ''));
+                $dur    = trim((string)($m['dur'] ?? (isset($m['duration_minute']) && $m['duration_minute'] > 0 ? (floor($m['duration_minute']/60) > 0 ? floor($m['duration_minute']/60).'h '.($m['duration_minute']%60).'m' : $m['duration_minute'].'m') : '')));
+                $format = trim((string)($m['format'] ?? '2D'));
+                $rating = trim((string)($m['rating_age'] ?? $m['rating'] ?? ''));
                 ?>
                 <div class="keen-slider__slide poster-keen-slide">
                     <div class="movie-wrap"
@@ -47,7 +47,7 @@ function renderPosterCarousel(string $id, array $items, string $mode = 'now')
                                     <?php endif; ?>
 
                                     <?php if ($mode !== 'upcoming'): ?>
-                                        <a href="booking.php?slug=<?= urlencode($slug) ?>"
+                                        <a href="movie-detail.php?slug=<?= urlencode($slug) ?>#jadwal"
                                             class="btn btn-dark btn-sm rounded-pill px-3 btn-ticket">
                                             <i class="bi bi-ticket-perforated me-1"></i> Tiket
                                         </a>

@@ -7,6 +7,9 @@
   <title><?= htmlspecialchars($title) ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- DataTables -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
   <style>
     :root {
       --c4-bg      : #070b14;
@@ -336,6 +339,200 @@
       z-index: 99;
     }
     .adm-overlay.open { display: block; }
+
+    /* ── DataTables dark theme ── */
+
+    /* Length select & filter input */
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+      background: rgba(255,255,255,.06) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      border-radius: 8px !important;
+      color: #fff !important;
+      padding: 6px 12px !important;
+      outline: none !important;
+      -webkit-appearance: none;
+      appearance: none;
+      min-width: 70px;
+    }
+    .dataTables_wrapper .dataTables_length select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,.5)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 10px center !important;
+      padding-right: 32px !important;
+    }
+    .dataTables_wrapper .dataTables_length select option {
+      background: #0d1727 !important;
+      color: #fff !important;
+    }
+    .dataTables_wrapper .dataTables_filter input:focus {
+      border-color: rgba(31,111,255,.55) !important;
+      box-shadow: 0 0 0 3px rgba(31,111,255,.12) !important;
+    }
+
+    /* Labels & info */
+    .dataTables_wrapper .dataTables_length label,
+    .dataTables_wrapper .dataTables_filter label,
+    .dataTables_wrapper .dataTables_info {
+      color: rgba(255,255,255,.50) !important;
+      font-size: 13px !important;
+    }
+
+    /* Pagination */
+    .dataTables_wrapper .dataTables_paginate {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      color: rgba(255,255,255,.55) !important;
+      font-size: 13px !important;
+      border: 1px solid transparent !important;
+      border-radius: 8px !important;
+      padding: 5px 11px !important;
+      background: transparent !important;
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      background: rgba(255,255,255,.08) !important;
+      border-color: rgba(255,255,255,.15) !important;
+      color: #fff !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+      background: var(--c4-primary) !important;
+      border-color: var(--c4-primary) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 12px rgba(31,111,255,.40) !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+      color: rgba(255,255,255,.20) !important;
+      cursor: default !important;
+      background: transparent !important;
+      border-color: transparent !important;
+    }
+
+    /* Table head */
+    table.dataTable thead th {
+      border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    }
+    table.dataTable.no-footer {
+      border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    }
+    table.dataTable thead .sorting::before,
+    table.dataTable thead .sorting::after,
+    table.dataTable thead .sorting_asc::before,
+    table.dataTable thead .sorting_asc::after,
+    table.dataTable thead .sorting_desc::before,
+    table.dataTable thead .sorting_desc::after {
+      opacity: .3;
+    }
+    table.dataTable thead .sorting_asc::after,
+    table.dataTable thead .sorting_desc::after {
+      opacity: .9;
+      color: var(--c4-primary);
+    }
+    table.dataTable tbody tr:hover > * {
+      background: rgba(255,255,255,.03) !important;
+      box-shadow: none !important;
+    }
+
+    /* Buttons export */
+    .dt-buttons { display: flex; gap: 6px; }
+    .dt-buttons .adm-btn { font-size: 12px !important; }
+
+    /* Wrapper spacing */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+      margin-bottom: 0;
+    }
+
+    /* Sembunyikan length saja — pakai search DataTables */
+    .dataTables_wrapper .dataTables_length { display: none !important; }
+
+    /* Rapikan search DataTables */
+    .dataTables_wrapper .dataTables_filter {
+      display: flex !important;
+      align-items: center;
+    }
+    .dataTables_wrapper .dataTables_filter label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+      width: 220px !important;
+    }
+
+    /* Pagination prev/next putih — force dark */
+    /* Pagination prev/next — tanpa kotak pembungkus */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+      background: transparent !important;
+      border: none !important;
+      color: rgba(255,255,255,.60) !important;
+      box-shadow: none !important;
+      font-size: 16px !important;
+      padding: 4px 10px !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
+      background: transparent !important;
+      border: none !important;
+      color: #fff !important;
+      box-shadow: none !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover {
+      background: transparent !important;
+      border: none !important;
+      color: rgba(255,255,255,.20) !important;
+      box-shadow: none !important;
+    }
+    /* Force override Bootstrap white background pada paginate */
+    .pagination .page-item .page-link,
+    .dataTables_paginate .paginate_button {
+      background-color: transparent !important;
+    }
+    /* Override border putih prev/next dari DataTables Bootstrap theme */
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item .page-link {
+      background: rgba(255,255,255,.06) !important;
+      border-color: rgba(255,255,255,.14) !important;
+      color: rgba(255,255,255,.70) !important;
+    }
+    /* prev/next page-item tanpa kotak */
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item:first-child .page-link,
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item:last-child .page-link {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: rgba(255,255,255,.60) !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item:first-child .page-link:hover,
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item:last-child .page-link:hover {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: #fff !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link {
+      background: var(--c4-primary) !important;
+      border-color: var(--c4-primary) !important;
+      color: #fff !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.disabled .page-link {
+      background: rgba(255,255,255,.03) !important;
+      border-color: rgba(255,255,255,.08) !important;
+      color: rgba(255,255,255,.20) !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item .page-link:hover {
+      background: rgba(255,255,255,.12) !important;
+      border-color: rgba(255,255,255,.25) !important;
+      color: #fff !important;
+    }
   </style>
 </head>
 <body>

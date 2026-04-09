@@ -42,7 +42,7 @@ include 'partials/sidebar.php';
         </a>
       </div>
       <div style="overflow-x:auto;">
-        <table class="adm-table">
+        <table class="adm-table" data-dt='{}'>
           <thead>
             <tr>
               <th>#</th>
